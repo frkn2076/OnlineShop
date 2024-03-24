@@ -5,7 +5,6 @@ using OnlineShop.Order.Api.Extensions;
 using OnlineShop.Order.Api.Services.Contracts;
 using OnlineShop.Order.Api.Services.Implementations;
 using OnlineShop.Order.Api.Utils;
-using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 
 namespace OnlineShop.Order.Api;

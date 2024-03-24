@@ -1,21 +1,16 @@
-﻿using OnlineShop.Order.Api.Models.Responses;
-using OnlineShop.Order.Api.Test.IntegrationTesting.ApplicationFactories;
+﻿using Microsoft.AspNetCore.Mvc.Testing;
+using OnlineShop.Order.Api.Models.Responses;
 using System.Net;
 using System.Net.Http.Json;
 
 namespace OnlineShop.Order.Api.Test.IntegrationTesting;
 
-public class OrderTests(OrderWebApplicationFactory orderApplicationFactory, 
-    CustomerWebApplicationFactory customerApplicationFactory,
-    ProductWebApplicationFactory productApplicationFactory) 
-    : IClassFixture<OrderWebApplicationFactory>, IClassFixture<CustomerWebApplicationFactory>, IClassFixture<ProductWebApplicationFactory>
+public class OrderTests(WebApplicationFactory<Program> factory) : IClassFixture<WebApplicationFactory<Program>>
 {
     [Fact]
     public async Task Get_Order_Returns_All_Orders_Properly()
     {
-        _ = customerApplicationFactory.CreateClient();
-        _ = productApplicationFactory.CreateClient();
-        var orderClient = orderApplicationFactory.CreateClient();
+        var orderClient = factory.CreateClient();
 
         var httpResponse = await orderClient.GetAsync("/order?from=2024-02-21T12:30:45.000Z&to=2024-04-25T12:30:45.000Z");
 
@@ -35,6 +30,24 @@ public class OrderTests(OrderWebApplicationFactory orderApplicationFactory,
             Assert.DoesNotContain(null, response.Select(x => x.Customer?.Name));
             Assert.DoesNotContain(null, response.Select(x => x.Customer?.Surname));
             Assert.DoesNotContain(null, response.SelectMany(x => x.Products).Select(x => x.Definition));
+        });
+    }
+
+    [Fact]
+    public async Task Get_Order_Returns_No_Orders_When_NotFound_Range()
+    {
+        var orderClient = factory.CreateClient();
+
+        var httpResponse = await orderClient.GetAsync("/order?from=2024-04-21T12:30:45.000Z&to=2024-04-25T12:30:45.000Z");
+
+        Assert.Equal(HttpStatusCode.OK, httpResponse.StatusCode);
+
+        var response = await httpResponse.Content.ReadFromJsonAsync<List<OrderResponseModel>>();
+
+        Assert.Multiple(() =>
+        {
+            Assert.NotNull(response);
+            Assert.Empty(response);
         });
     }
 }
