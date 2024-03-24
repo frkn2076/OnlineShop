@@ -1,0 +1,96 @@
+﻿version: '3.4'
+
+services:    
+  order_db:
+    image: postgres
+    restart: always
+    ports: 
+      - "5442:5432"
+    environment:
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: orderdb
+    volumes:
+      - order-db-volume:/var/lib/postgresql/data
+      
+  customer_db:
+    image: postgres
+    restart: always
+    ports: 
+      - "5443:5432"
+    environment:
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: customerdb
+    volumes:
+       - customer-db-volume:/var/lib/postgresql/data
+  
+  product_db:
+    image: postgres
+    restart: always
+    ports: 
+      - "5444:5432"
+    environment:
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: productdb
+    volumes:
+      - product-db-volume:/var/lib/postgresql/data
+
+  order_api:
+    restart: always
+    build:
+      context: .
+      dockerfile: source/OnlineShop.Order.Api/Dockerfile
+    ports:
+      - '5001:443'
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: https://+:443;http://+:80
+      ASPNETCORE_HTTPS_PORT: 8081
+      ASPNETCORE_Kestrel__Certificates__Default__Password: sEcREtpaSsWord1
+      ASPNETCORE_Kestrel__Certificates__Default__Path: /home/app/https/OnlineShop.Order.Api.pfx
+    volumes:
+      - ~/https:/home/app/https:ro
+    depends_on:
+      - order_db
+      - customer_grpc
+      - product_grpc
+  
+  customer_grpc:
+    restart: always
+    build:
+      context: .
+      dockerfile: source/OnlineShop.Customer.Grpc/Dockerfile
+    ports:
+      - '5002:80'
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: https://+:443;http://+:80
+      ASPNETCORE_HTTPS_PORT: 8081
+      ASPNETCORE_Kestrel__Certificates__Default__Password: sEcREtpaSsWord2
+      ASPNETCORE_Kestrel__Certificates__Default__Path: /https/OnlineShop.Customer.Grpc.pfx
+    volumes:
+      - ~/https:/https:ro
+    depends_on:
+      - customer_db
+
+  product_grpc:
+    restart: always
+    build: 
+      context: .
+      dockerfile: source/OnlineShop.Product.Grpc/Dockerfile
+    ports:
+      - '5003:80'
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: https://+:443;http://+:80
+      ASPNETCORE_HTTPS_PORT: 8081
+      ASPNETCORE_Kestrel__Certificates__Default__Password: sEcREtpaSsWord3
+      ASPNETCORE_Kestrel__Certificates__Default__Path: /https/OnlineShop.Product.Grpc.pfx
+    volumes:
+      - ~/https:/https:ro
+    depends_on:
+      - product_db
+
+volumes:
+  order-db-volume:
+  customer-db-volume:
+  product-db-volume:  

@@ -1,0 +1,5 @@
+@OnlineShop.Order.Api_HostAddress = https://localhost:7178
+
+GET {{OnlineShop.Order.Api_HostAddress}}/order?from=2024-02-21T12:30:45.000Z&to=2024-04-25T12:30:45.000Z
+
+###

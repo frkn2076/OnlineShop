@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option csharp_namespace = "OnlineShop.Customer.Grpc";
+
+package customer;
+
+service Customer {
+  rpc GetCustomers (CustomerRequest) returns (CustomerResponse);
+}
+
+message CustomerRequest {
+  repeated int32 ids = 1;
+}
+
+message CustomerResponse {
+  repeated CustomerDetail customers = 1;
+}
+
+message CustomerDetail {
+  int32 id = 1;
+  string name = 2;
+  string surname = 3;
+}

@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+	
+  <ItemGroup>
+	<PackageReference Include="Google.Protobuf" Version="3.26.0" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.61.0" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <Protobuf Include="customer.proto" GrpcServices="Both" />
+    <Protobuf Include="product.proto" GrpcServices="Both" />
+  </ItemGroup>
+
+</Project>
