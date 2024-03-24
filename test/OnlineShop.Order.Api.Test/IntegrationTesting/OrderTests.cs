@@ -7,7 +7,7 @@ namespace OnlineShop.Order.Api.Test.IntegrationTesting;
 
 public class OrderTests(WebApplicationFactory<Program> factory) : IClassFixture<WebApplicationFactory<Program>>
 {
-    [Fact]
+    [Fact(Skip = "Not having grpc services up and running on the server, run explicitly while having grpc services run locally")]
     public async Task Get_Order_Returns_All_Orders_Properly()
     {
         var orderClient = factory.CreateClient();
@@ -33,7 +33,7 @@ public class OrderTests(WebApplicationFactory<Program> factory) : IClassFixture<
         });
     }
 
-    [Fact]
+    [Fact(Skip = "Not having grpc services up and running on the server, run explicitly while having grpc services run locally")]
     public async Task Get_Order_Returns_No_Orders_When_NotFound_Range()
     {
         var orderClient = factory.CreateClient();

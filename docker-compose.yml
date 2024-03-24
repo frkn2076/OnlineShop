@@ -90,6 +90,15 @@ services:
     depends_on:
       - product_db
 
+  tests:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - order_api
+      - customer_grpc
+      - product_grpc
+
 volumes:
   order-db-volume:
   customer-db-volume:
