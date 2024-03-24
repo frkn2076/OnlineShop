@@ -74,4 +74,4 @@
 * Or **VS:** Test -> Run All Tests
 
 ### Integration Tests
-* Or **VS:** Run explicitly since skipped (Ensure you have both Customer.Grpc and Product.Grpc running locally for integration tests since we don't have a server keeps grpc services up and running)
+* **VS:** Run explicitly since skipped (Ensure you have both Customer.Grpc and Product.Grpc running locally for integration tests since we don't have a server keeps grpc services up and running)
