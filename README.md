@@ -6,6 +6,7 @@
 * Customer
 
 #### Single endpoint of Api serves order information by including customer and product details.
+<br>
 
 ![OnlineShop_Uml_Diagram](https://github.com/frkn2076/OnlineShop/assets/38755260/2cb04a13-350d-4ccd-be04-dee590f05846)
 
