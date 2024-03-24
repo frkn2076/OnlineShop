@@ -64,4 +64,6 @@
 * You can use swagger documentation about calling API.
 * Or [Prepared Http file](https://github.com/frkn2076/OnlineShop/blob/develop/source/OnlineShop.Order.Api/OnlineShop.Order.Api.http) to use sample call.
 
+## Unit Tests and Integration Tests
+* VS: Test -> Run All Tests (Ensure you have both Customer.Grpc and Product.Grpc running locally for integration tests)
 
