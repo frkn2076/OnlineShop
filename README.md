@@ -44,7 +44,7 @@
 
 <br></br>
 
-## Developer Path
+# Developer Path
 
 ### Setup
 * Install your favorite IDE (VS, VSCode etc.)
