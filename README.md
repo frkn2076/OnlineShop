@@ -31,8 +31,10 @@
 
 ## Run
 * **git clone https://github.com/frkn2076/OnlineShop**
-* **cd ..\OnlineShop**
+* **cd .../OnlineShop**
 * **docker-compose up** ('docker-compose down' to remove containers, networks, volumes, and images created by up)
+  * *This might that a few minutes to complete.*
+  * It will be running all tests and output the result.
 
 
 ## Api Call through Docker
@@ -53,17 +55,20 @@
 * docker run -p 5444:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=example -e POSTGRES_DB=productdb -d postgres:13-alpine
 
 ### Create Database Migration Files If You Have Any Changes
-* Navigate the project that you have database changes: cd ..\OnlineShop\source\OnlineShop.Order.Api
+* Navigate the project that you have database changes: cd ../OnlineShop/source/OnlineShop.Order.Api
 * dotnet ef migrations add {Your_Migration_Name} (will create Migration files)
 * Projects will be applying these migrations during runtime once you start them.
 
 ### Run and Debug
 * Run each microservices seperately according to 'https' profile under Properties/launchSettings.json
-
-## Test
 * You can use swagger documentation about calling API.
 * Or [Prepared Http file](https://github.com/frkn2076/OnlineShop/blob/develop/source/OnlineShop.Order.Api/OnlineShop.Order.Api.http) to use sample call.
 
-## Unit Tests and Integration Tests
-* **VS:** Test -> Run All Tests (Ensure you have both Customer.Grpc and Product.Grpc running locally for integration tests since we don't have a server keeps grpc services up and running)
+### Unit Tests
+* **CMD:**:
+  * cd .../OnlineShop.Customer.Grpc.Test
+  * dotnet test ./OnlineShop.Customer.Grpc.Test.csproj
+* Or **VS:** Test -> Run All Tests
 
+### Integration Tests
+* Or **VS:** Run explicitly since skipped (Ensure you have both Customer.Grpc and Product.Grpc running locally for integration tests since we don't have a server keeps grpc services up and running)
