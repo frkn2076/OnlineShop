@@ -1,6 +1,6 @@
 # OnlineShop
 
-### OnlineShop is being built with Microservices: 
+### OnlineShop is built with Microservices below: 
 * Order
 * Product
 * Customer
