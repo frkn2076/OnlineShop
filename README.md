@@ -36,7 +36,7 @@
 * **git clone https://github.com/frkn2076/OnlineShop**
 * **cd .../OnlineShop**
 * **docker-compose up** ('docker-compose down' to remove containers, networks, volumes, and images created by up)
-  * *This might that a few minutes to complete.*
+  * *This might take a few minutes to complete.*
   * It will be running all tests and output the result.
 
 
